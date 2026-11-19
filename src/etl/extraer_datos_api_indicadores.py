@@ -6,10 +6,15 @@ from datetime import date
 from etl.indicadores_disponibles import HEADERS, PATH_DATA_RAW
 from etl.set_parameters import set_parameters, generar_rangos_mensuales
 
-JSON_INDICADORES = PATH_DATA_RAW / "indicadores_seleccionados.json"
 
-with JSON_INDICADORES.open("r") as file:
-    INDICADORES_SELECCIONADOS = json.load(file)
+def cargar_indicadores_seleccionados() -> dict:
+    JSON_INDICADORES = PATH_DATA_RAW / "indicadores_seleccionados.json"
+
+    with JSON_INDICADORES.open("r") as file:
+        return json.load(file)
+
+
+INDICADORES_SELECCIONADOS = cargar_indicadores_seleccionados()
 
 rango_fechas = generar_rangos_mensuales(date(2020, 1, 1))
 
